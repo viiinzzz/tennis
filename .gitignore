@@ -1,6 +1,7 @@
 # compiled output
 /dist
 /node_modules
+yarn.lock
 
 # Logs
 logs
@@ -33,4 +34,8 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+#AWS serverless deployment
 /.aws
+/.serverless
+
+.env

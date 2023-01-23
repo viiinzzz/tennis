@@ -19,7 +19,7 @@ import { CreatePlayerDto } from '../dto/create-player.dto';
 import { UpdatePlayerDto } from '../dto/update-player.dto';
 import { AdminService } from './admin.service';
 
-import * as PLAYERS_SEEDING from './playersSeeding.json';
+import * as PLAYERS_SEEDING from '../players-seeding.json';
 
 @Controller('players')
 @ApiTags('admin')
@@ -58,13 +58,12 @@ export class AdminController {
   @ApiCreatedResponse({ description: 'Players created successfully.' })
   @ApiUnprocessableEntityResponse({ description: 'Players shortname exists.' })
   async seed() {
-    const players = PLAYERS_SEEDING.players;
-    if (!players.length) {
+    if (!PLAYERS_SEEDING.length) {
       throw new Error('players seeding empty');
     }
 
     await Promise.all(
-      players.map(async (player) => {
+      PLAYERS_SEEDING.map(async (player) => {
         const createPlayerDto = player as any as CreatePlayerDto;
         try {
           await this.service.create(createPlayerDto);

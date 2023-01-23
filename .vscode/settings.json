@@ -1,0 +1,17 @@
+{
+    "nuxt.isNuxtApp": false,
+    
+    "instantMongo": {
+        "connections": [
+            {
+            "name": ":27019/tennis",
+            "uri": "mongodb://localhost:27019/tennis"
+            },
+            {
+            "name": ":27017/tennis",
+            "uri": "mongodb://localhost:27017/tennis"
+            },
+        ]
+    }
+
+}
