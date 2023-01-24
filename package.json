@@ -20,9 +20,14 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:cloud": "sls offline start",
+    "start:cloud": "cross-env AWS_CLIENT_TIMEOUT=300000 serverless deploy --org=viiinzzz --aws-s3-accelerate",
     "doc__________LIVINGDOC_SCRIPTS__________": "",
-    "typedep": "yarn --silent depcruise src --include-only \"^src\" --config --output-type dot | dot -T svg > ./docs/typedep.svg",
-    "·🗺️·type dependency": "yarn typedep&&\"%LOCALAPPDATA%\\Programs\\Microsoft VS Code\\Code.exe\" ./docs/typedep.svg"
+    "doc:cloud": "sls graph -o ./docs/cloud.out&& cross-cat ./docs/cloud.out | dot -Tpng > ./docs/cloud.png&&\"%LOCALAPPDATA%\\Programs\\Microsoft VS Code\\Code.exe\" ./docs/cloud.png",
+    "doc:cloud:noregen": "cross-cat ./docs/cloud.out | dot -Tpng > ./docs/cloud.png&&\"%LOCALAPPDATA%\\Programs\\Microsoft VS Code\\Code.exe\" ./docs/cloud.png",
+    "doc:dependencies": "yarn --silent depcruise src --include-only \"^src\" --config --output-type dot | dot -Tpng > ./docs/dependencies.png&&\"%LOCALAPPDATA%\\Programs\\Microsoft VS Code\\Code.exe\" ./docs/dependencies.png",
+    "·☁️·doc:cloud": "yarn doc:cloud",
+    "·🧲·doc:dependencies": "yarn doc:dependencies"
   },
   "dependencies": {
     "@nestjs/common": "^9.2.1",
@@ -49,6 +54,8 @@
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
+    "cross-cat": "^1.0.0",
+    "cross-env": "^7.0.3",
     "dependency-cruiser": "^12.5.0",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.1.0",
@@ -57,6 +64,7 @@
     "nestjs-bdd": "^0.4.2",
     "plugin": "^0.3.3",
     "prettier": "^2.2.1",
+    "serverless-graph": "^0.3.2",
     "serverless-jetpack": "^0.11.1",
     "serverless-offline": "^12.0.4",
     "serverless-plugin-optimize": "^4.2.1-rc.1",

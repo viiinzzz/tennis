@@ -1,10 +1,15 @@
+org: viiinzzz
+app: tennis-lambda
 service: tennis-lambda
 
 frameworkVersion: '3'
 
 plugins:
   - serverless-jetpack
+  # - 'serverless-plugin-typescript'
+  # - serverless-plugin-optimize
   - serverless-offline
+  - serverless-graph
 
 provider:
   name: aws
@@ -14,13 +19,28 @@ provider:
 functions:
   api:
     handler: dist/lambda.handler
+    # handler: src/lambda1.handler
     events:
-      - http: ANY /
-      - http: ANY /{proxy+}
+      - http: GET /
+      - http: GET /ranks
+      - http: GET /details/{any+}
+      - http: GET /stats
+      - http: ANY /admin
       # - http:
       #     method: any
       #     path: /{any+}
 custom:
-  serverless-offline:
-    noPrependStageInUrl: true
+  # serverless-offline:
+  #   noPrependStageInUrl: true
+  routeSettings:
+    detailedMetricsEnabled: true
+    rateLimit: 10
+    burstLimit: 3
     # useDocker: true
+  # jetpack:
+  #   trace: true
+  # webpack:
+  #   packager: "yarn"
+  #   includeModules:
+  #     forceExclude:
+  #       - aws-sdk
